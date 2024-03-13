@@ -1,27 +1,27 @@
 import './modal.css';
 
 export default class Modal {
-    constructor(container) {
-        if (!(container instanceof HTMLElement)) {
-            throw new Error('container is not HTMLElement');
-        }
+	constructor(container) {
+		if (!(container instanceof HTMLElement)) {
+			throw new Error('container is not HTMLElement');
+		}
 
-        this.container = container;
-        this.errorContainer = null;
-        this.modal = null;
-        this.textEl = null;
-        this.submitButton = null;
-        this.openButton = null;
-        this.closeButton = null;
-    }
+		this.container = container;
+		this.errorContainer = null;
+		this.modal = null;
+		this.textEl = null;
+		this.submitButton = null;
+		this.openButton = null;
+		this.closeButton = null;
+	}
 
-    init() {
-        this.drawUi();
-        this.addEvents();
-    }
+	init() {
+		this.drawUi();
+		this.addEvents();
+	}
 
-    drawUi() {
-        this.container.innerHTML = `
+	drawUi() {
+		this.container.innerHTML = `
       <div id="modal" class="modal">
         <div class="modal-wrapper">
           <div class="modal-content">
@@ -35,55 +35,55 @@ export default class Modal {
         <div class="error-container"></div>
       </div>
     `;
-    }
+	}
 
-    addEvents() {
-        this.modal = this.container.querySelector('#modal');
-        this.textEl = this.container.querySelector('#text');
-        this.submitButton = this.container.querySelector('#submit');
-        this.openButton = this.container.querySelector('#open-modal');
-        this.closeButton = this.container.querySelector('.close-modal');
-        this.errorContainer = this.container.querySelector('.error-container');
+	addEvents() {
+		this.modal = this.container.querySelector('#modal');
+		this.textEl = this.container.querySelector('#text');
+		this.submitButton = this.container.querySelector('#submit');
+		this.openButton = this.container.querySelector('#open-modal');
+		this.closeButton = this.container.querySelector('.close-modal');
+		this.errorContainer = this.container.querySelector('.error-container');
 
-        this.submitButton.addEventListener('click', () => this.onSubmit());
-        this.openButton.addEventListener('click', () => this.showModal());
-        this.textEl.addEventListener('click', () => this.clearTextField());
-        this.closeButton.addEventListener('click', () => this.hideModal());
-    }
+		this.submitButton.addEventListener('click', () => this.onSubmit());
+		this.openButton.addEventListener('click', () => this.showModal());
+		this.textEl.addEventListener('click', () => this.clearTextField());
+		this.closeButton.addEventListener('click', () => this.hideModal());
+	}
 
-    onSubmit() {
-        if (this.textEl.value) {
-            this.modal.style.display = 'none';
-        } else {
-            this.showError('Пожалуйста, введите ваш текст');
-        }
-    }
+	onSubmit() {
+		if (this.textEl.value) {
+			this.modal.style.display = 'none';
+		} else {
+			this.showError('Пожалуйста, введите ваш текст');
+		}
+	}
 
-    showModal() {
-        this.modal
-            .querySelector('.modal-content')
-            .classList.add('modal-content_visible');
-        this.openButton.classList.add('open-modal_click');
-    }
+	showModal() {
+		this.modal
+			.querySelector('.modal-content')
+			.classList.add('modal-content_visible');
+		this.openButton.classList.add('open-modal_click');
+	}
 
-    hideModal() {
-        this.modal
-            .querySelector('.modal-content')
-            .classList.remove('modal-content_visible');
-        this.openButton.classList.remove('open-modal_click');
-    }
+	hideModal() {
+		this.modal
+			.querySelector('.modal-content')
+			.classList.remove('modal-content_visible');
+		this.openButton.classList.remove('open-modal_click');
+	}
 
-    clearTextField() {
-        this.textEl.value = '';
-        this.hideError();
-    }
+	clearTextField() {
+		this.textEl.value = '';
+		this.hideError();
+	}
 
-    showError(message) {
-        this.errorContainer.textContent = message;
-        this.errorContainer.style.display = 'block';
-    }
+	showError(message) {
+		this.errorContainer.textContent = message;
+		this.errorContainer.style.display = 'block';
+	}
 
-    hideError() {
-        this.errorContainer.style.display = 'none';
-    }
+	hideError() {
+		this.errorContainer.style.display = 'none';
+	}
 }
